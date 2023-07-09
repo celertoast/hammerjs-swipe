@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,9 +7,23 @@ import * as Hammer from 'hammerjs';
 import { GestureDirective } from './gesture.directive';
 export class MyHammerConfig extends HammerGestureConfig {
   override buildHammer(element: HTMLElement) {
-    let mc = new Hammer(element, {
-      touchAction: "pan-x pan-y",
-    });
+    let options = {};
+    const dataAttr: string = element.getAttribute('data-mc-options') || '';
+    if (dataAttr !== '') {
+      try {
+        let parseOptions = JSON.parse(dataAttr);
+        options = parseOptions;
+      } catch(err) {
+        console.error('An error occurred when attempting to parse Hammer.js options: ', err);
+      }
+    }
+    // } else {
+    //   options = {
+    //     touchAction: "pan-x pan-y",
+    //   }
+    // }
+
+    let mc = new Hammer(element, options);
     mc.get('swipe').set({
       enable: true,
       direction: Hammer.DIRECTION_ALL
@@ -46,6 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig {
       useClass: MyHammerConfig
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
