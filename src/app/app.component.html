@@ -303,13 +303,13 @@
 </style>
 
 
-<div class="content" role="main">
+<div style="margin-bottom: 200px" class="content" role="main">
 
   <!-- Highlight Card -->
-  <div *ngFor="let d of data; let idx=index" [id]="idx" class="card highlight-card card-small" (swipe)="swipeup($event)">
+  <div *ngFor="let d of data; let idx=index" [id]="(idx + 1)" class="card highlight-card card-small" (swipeleft)="swipeleft($event)" (swipeup)="swipeup($event)">
 
     <span>{{d.name}}</span>
-    <span>{{d.address}}</span>
+    <span appGesture (doubleTap)="doubleTap($event)" (tripleTap)="tripleTap($event)">{{d.address}}</span>
 
   </div>
 

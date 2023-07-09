@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'hammerjs-test';
   public data = [
-    {name: 'test', address:'addr'},
     {name: 'test1', address:'addr1'},
     {name: 'test2', address:'addr2'},
     {name: 'test3', address:'addr3'},
@@ -18,16 +17,10 @@ export class AppComponent {
     {name: 'test7', address:'addr7'},
     {name: 'test8', address:'addr8'},
     {name: 'test9', address:'addr9'},
-    {name: 'test10', address:'addr10'},
-    {name: 'test11', address:'addr11'},
-    {name: 'test12', address:'addr12'},
-    {name: 'test13', address:'addr13'},
-    {name: 'test14', address:'addr14'},
-    {name: 'test15', address:'addr15'}
+    {name: 'test10', address:'addr10'}
   ];
 
   public data2 = [
-    {name: 'd2test', address:'addr'},
     {name: 'd2test1', address:'addr1'},
     {name: 'd2test2', address:'addr2'},
     {name: 'd2test3', address:'addr3'},
@@ -37,18 +30,30 @@ export class AppComponent {
     {name: 'd2test7', address:'addr7'},
     {name: 'd2test8', address:'addr8'},
     {name: 'd2test9', address:'addr9'},
-    {name: 'd2test10', address:'addr10'},
-    {name: 'd2test11', address:'addr11'},
-    {name: 'd2test12', address:'addr12'},
-    {name: 'd2test13', address:'addr13'},
-    {name: 'd2test14', address:'addr14'},
-    {name: 'd2test15', address:'addr15'}
+    {name: 'd2test10', address:'addr10'}
   ];
 
   public swipeup(event: any) {
-    console.log(event);
+    alert(event);
     if (+event.target.id % 10 === 0) {
       this.data = this.data.concat(this.data2);
     }
   }
+
+  public swipeleft(event: any) {
+    alert(event);
+  }
+
+  public panup(event: any) {
+    if (+event.target.id % 10 === 0) {
+      this.swipeup(event)
+    }
+  }
+  public doubleTap(event: any) {
+    console.log(event);
+  }
+  public tripleTap(event: any) {
+    console.log(event);
+  }
+
 }
